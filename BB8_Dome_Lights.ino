@@ -21,6 +21,7 @@ const unsigned long psiLEDinterval = 2563;
 long previousMillis ;
 long interval = 150;
 byte i = 0;
+int direction = 1;
 
 // Variable holding the timer value so far. One for each "Timer"
 unsigned long greenLEDtimer;
@@ -126,27 +127,28 @@ void loop ()
   if ( (millis () - psiLEDtimer) >= psiLEDinterval)
      togglepsiLED ();
 
-    if (millis() - previousMillis > interval) {
+  if (millis() - previousMillis > interval) {
     previousMillis = millis();
-
-    if ( i < sizeof(ledPins) - 1 ) {
-      // Turn off the previous LED
-      digitalWrite(ledPins[i], LOW);
-
-      // Turn on the next LED
-      digitalWrite(ledPins[++i ], HIGH);
+    
+    for(int n = 0; n < sizeOf(ledPins); n++ ){  //turns off all sweeper leds
+      digitalWrite(ledPins[n], LOW);
     }
 
-    else if  (i == sizeof(ledPins) - 1 )   {
-      // Last event
-      i = 0;
-      previousMillis = millis();
-      digitalWrite(ledPins[i ], HIGH);
-      digitalWrite(ledPins[ sizeof(ledPins) - 1 ], LOW);
+    digitalWrite(ledPins[i], HIGH);
+    
+    if (i == sizeof(ledPins) - 1) {
+      direction = -1;
+    } 
+
+    if (i == 0) {
+      direction = 1;
     }
+
+    i += direction;
 
 /* Other code that needs to execute goes here.
    It will be called many thousand times per second because the above code
    does not wait for the LED blink interval to finish. */
 
-    }}  // end of loop
+  }
+}  // end of loop
