@@ -23,12 +23,12 @@ long interval = 150;
 byte i = 0;
 int direction = 1;
 
-// Variable holding the timer value so far. One for each "Timer"
-unsigned long greenLEDtimer;
-unsigned long yellowLEDtimer;
-unsigned long blueLEDtimer;
-unsigned long holoLEDtimer;
-unsigned long psiLEDtimer;
+// Variable holding the LastUpdate value so far. One for each "LastUpdate"
+unsigned long greenLEDLastUpdate;
+unsigned long yellowLEDLastUpdate;
+unsigned long blueLEDLastUpdate;
+unsigned long holoLEDLastUpdate;
+unsigned long psiLEDLastUpdate;
 
 void setup () 
   {
@@ -39,11 +39,11 @@ void setup ()
   pinMode (blueLED, OUTPUT);
   pinMode (holoLED, OUTPUT);
   pinMode (psiLED, OUTPUT);
-  greenLEDtimer = millis ();
-  yellowLEDtimer = millis ();
-  blueLEDtimer = millis ();
-  holoLEDtimer = millis ();
-  psiLEDtimer = millis ();
+  greenLEDLastUpdate = millis ();
+  yellowLEDLastUpdate = millis ();
+  blueLEDLastUpdate = millis ();
+  holoLEDLastUpdate = millis ();
+  psiLEDLastUpdate = millis ();
   }  // end of setup
   
  previousMillis = millis();
@@ -57,7 +57,7 @@ void toggleGreenLED ()
       digitalWrite (greenLED, LOW);
 
   // remember when we toggled it
-  greenLEDtimer = millis ();  
+  greenLEDLastUpdate = millis ();  
   }  // end of toggleGreenLED
 
 void toggleyellowLED ()
@@ -68,7 +68,7 @@ void toggleyellowLED ()
       digitalWrite (yellowLED, LOW);
 
   // remember when we toggled it
-  yellowLEDtimer = millis ();  
+  yellowLEDLastUpdate = millis ();  
   }  // end of toggleyellowLED
 
 void toggleblueLED ()
@@ -79,7 +79,7 @@ void toggleblueLED ()
       digitalWrite (blueLED, LOW);
 
   // remember when we toggled it
-  blueLEDtimer = millis ();  
+  blueLEDLastUpdate = millis ();  
   }  // end of toggleblueLED
 
 void toggleholoLED ()
@@ -90,7 +90,7 @@ void toggleholoLED ()
       digitalWrite (holoLED, LOW);
 
   // remember when we toggled it
-  holoLEDtimer = millis ();  
+  holoLEDLastUpdate = millis ();  
   }  // end of toggleholoLED
 
   void togglepsiLED ()
@@ -101,36 +101,36 @@ void toggleholoLED ()
       digitalWrite (psiLED, LOW);
 
   // remember when we toggled it
-  psiLEDtimer = millis ();  
+  psiLEDLastUpdate = millis ();  
   }  // end of togglepsiLED
   
 void loop ()
   {
 
   // Handling the blink of Green LED.
-  if ( (millis () - greenLEDtimer) >= greenLEDinterval)
+  if ( (millis () - greenLEDLastUpdate) >= greenLEDinterval)
      toggleGreenLED ();
 
   // The Yellow LED is controlled the same way as above. 
-  if ( (millis () - yellowLEDtimer) >= yellowLEDinterval) 
+  if ( (millis () - yellowLEDLastUpdate) >= yellowLEDinterval) 
     toggleyellowLED ();
 
   // The Blue LED is controlled the same way as above.
-  if ( (millis () - blueLEDtimer) >= blueLEDinterval) 
+  if ( (millis () - blueLEDLastUpdate) >= blueLEDinterval) 
     toggleblueLED ();
 
     // The Hololens LED is controlled the same way as above.
-  if ( (millis () - holoLEDtimer) >= holoLEDinterval)
+  if ( (millis () - holoLEDLastUpdate) >= holoLEDinterval)
      toggleholoLED ();
 
      // The PSI LED is controlled the same way as above. 
-  if ( (millis () - psiLEDtimer) >= psiLEDinterval)
+  if ( (millis () - psiLEDLastUpdate) >= psiLEDinterval)
      togglepsiLED ();
 
   if (millis() - previousMillis > interval) {
     previousMillis = millis();
     
-    for(int n = 0; n < sizeOf(ledPins); n++ ){  //turns off all sweeper leds
+    for(int n = 0; n < sizeof(ledPins); n++ ){  //turns off all sweeper leds
       digitalWrite(ledPins[n], LOW);
     }
 
