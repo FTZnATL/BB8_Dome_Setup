@@ -13,9 +13,9 @@ const byte psiLED = 6; // PSI
 byte ledPins[] = { 8, 9, 10, 11, 12, 13}; //Radar Eye Array 
 
 // Time periods of blinks in milliseconds (1000 to a second).
-const unsigned long greenLEDinterval = 666;
-const unsigned long yellowLEDinterval = 999;
-const unsigned long blueLEDinterval = 444;
+const unsigned long greenLEDinterval = 663;
+const unsigned long yellowLEDinterval = 897;
+const unsigned long blueLEDinterval = 432;
 const unsigned long holoLEDinterval = 4381;
 const unsigned long psiLEDinterval = 2563;
 long previousMillis ;
